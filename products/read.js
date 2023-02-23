@@ -1,19 +1,23 @@
 const db = require("../db.js");
 
+function get(req, res) {
 
-const GET_ALL_PRODUCT_QUERY = `SELECT * from products`;
-
-const getAllProducts = (request, response) => {
+  const SELECT_QUERY = `SELECT * from products`;
   db.serialize(() => {
-    db.all(GET_ALL_PRODUCT_QUERY, (error, products) => {
+    db.all(SELECT_QUERY, function (error, products) {
       if (error) {
-        console.error(error);
-        response.status(500).send('Server Error')
+        res.status(500).json({
+          status: false,
+          error
+        })
       } else {
-        response.json(products)
+        res.json({
+          status: true,
+          products,
+        })
       }
     })
   });
 }
 
-module.exports = getAllProducts;
+module.exports = get;
