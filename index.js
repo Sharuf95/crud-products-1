@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 
 app.get(`/products`, get);
 app.post(`/products`, post);
-app.put(`/products/:productId`, put);
-app.delete("/products/:products", deleteProduct);
+app.put(`/products/:productId`, (req, res) => res.json({}));
+app.delete("/products/:products", (req, res) => res.json({}));
 
 app.listen(PORT, () => {
   console.log(`APP Running on http://localhost:${PORT}`)
